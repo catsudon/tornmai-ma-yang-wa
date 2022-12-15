@@ -1,0 +1,15 @@
+2022-12-15 22:18:41,201 - __main__ - INFO - {"status":200,"message":"ok"}
+2022-12-15 22:18:41,553 - __main__ - INFO - {"status":200,"message":"ok"}
+2022-12-15 22:18:41,928 - __main__ - INFO - {"status":200,"message":"ok"}
+2022-12-15 22:18:42,278 - __main__ - INFO - {"status":200,"message":"ok"}
+2022-12-15 22:18:42,622 - __main__ - INFO - {"status":200,"message":"ok"}
+2022-12-15 22:20:30,866 - __main__ - INFO - ぼっち・ざ・ろっく！ 10 ;{"status":401,"message":"Invalid access token"}
+2022-12-15 22:20:31,224 - __main__ - INFO - チェンソーマン 10 ;{"status":401,"message":"Invalid access token"}
+2022-12-15 22:20:31,584 - __main__ - INFO - どろろ 24 ;{"status":401,"message":"Invalid access token"}
+2022-12-15 22:20:31,888 - __main__ - INFO - 異世界おじさん 6 ;{"status":401,"message":"Invalid access token"}
+2022-12-15 22:20:32,219 - __main__ - INFO - SPY×FAMILY 11 ;{"status":401,"message":"Invalid access token"}
+2022-12-15 23:00:07,134 - __main__ - INFO - ぼっち・ざ・ろっく！ 10 ;{}
+2022-12-15 23:00:07,314 - __main__ - INFO - チェンソーマン 10 ;{}
+2022-12-15 23:00:07,519 - __main__ - INFO - どろろ 24 ;{}
+2022-12-15 23:00:07,704 - __main__ - INFO - 異世界おじさん 6 ;{}
+2022-12-15 23:00:07,912 - __main__ - INFO - SPY×FAMILY 11 ;{}
