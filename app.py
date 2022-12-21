@@ -73,7 +73,6 @@ def get_watching_anime():
 
     return watching_list
 
-
 watching_list = get_watching_anime()
 # watching_list = [('/anime/47917/Bocchi_the_Rock', 10, '\nぼっち・ざ・ろっく！\n  '), ('/anime/44511/Chainsaw_Man', 10, '\nチェンソーマン\n  '), ('/anime/37520/Dororo', 24, '\nどろろ\n  '), ('/anime/49220/Isekai_Ojisan', 6, '\n異世界おじさん\n  '), ('/anime/50602/Spy_x_Family_Part_2', 11, '\nSPY×FAMILY\n  ')]
 print(watching_list)
