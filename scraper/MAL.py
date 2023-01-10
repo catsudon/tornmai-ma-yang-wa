@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 def mal(url):
     r = requests.get(url,headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'})
     souped =  BeautifulSoup(r.text, 'html.parser')
-    ep_list = souped.find_all('a', class_="episode-number")
+    ep_list = souped.find_all('td', class_="episode-number")
     return (len(ep_list), getName(souped))
 
 
