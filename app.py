@@ -7,6 +7,8 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from scraper.MAL import mal
+from scraper.bilibili import bilibili
+
 # from dotenv import load_dotenv
 # load_dotenv()
 
@@ -69,7 +71,7 @@ def get_watching_anime():
         scheme = i['anime_url']
         anime_url = f'https://myanimelist.net{scheme}/episode'
         episode, name = mal(anime_url)
-        watching_list.append((scheme, episode, name))
+        watching_list.append((scheme, episode, name ))
 
     return watching_list
 
@@ -81,12 +83,15 @@ for scheme, latest_episode, name in watching_list:
     a = animelist.loc[animelist['scheme'] == scheme]
     found_in_local = len(a)
     if found_in_local:
+        b = a['bilibili']
+        latest_episode = max(latest_episode, bilibili(f"https://www.bilibili.tv/th/play{b}"))
         if (latest_episode > int(a['episode'])):
             animelist.loc[animelist['scheme'] ==
                           scheme, 'episode'] = latest_episode
             notify(name, latest_episode)
     else:
-        animelist.loc[len(animelist.index)] = [scheme, latest_episode]
+        b = None
+        animelist.loc[len(animelist.index)] = [scheme, latest_episode, b]
         notify(name, latest_episode)
 
 animelist.to_csv('./animelist.csv', index=False)
