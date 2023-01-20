@@ -10,8 +10,9 @@ from scraper.MAL import mal
 from scraper.bilibili import bilibili
 from scraper.illegal import get_latest_episode
 
-from dotenv import load_dotenv
-load_dotenv()
+if(not os.getenv("GITHUB_ACTIONS")):
+    from dotenv import load_dotenv
+    load_dotenv()
 
 try:
     ACCESS_TOKEN = os.environ["ACCESS_TOKEN"]
