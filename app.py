@@ -77,7 +77,7 @@ for i in range(animelist.shape[0]):
     logger.info(f'🤖: {name} {fetched_episode}')
 
     if fetched_episode > latest_episode:
-        notify(name, latest_episode)
+        notify(name, fetched_episode)
         animelist.loc[i] = [name, fetched_episode, bilibili_scheme, pirate]
 
 animelist.to_csv('./animelist.csv', index=False)
