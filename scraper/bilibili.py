@@ -14,4 +14,4 @@ def bilibili(url):
 
 # debugger
 if __name__ == '__main__':
-    print(bilibili("https://www.bilibili.tv/th/play/2069687/"))
+    print(bilibili("https://www.bilibili.tv/th/play/2069747"))

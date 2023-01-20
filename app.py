@@ -8,9 +8,10 @@ from bs4 import BeautifulSoup
 import json
 from scraper.MAL import mal
 from scraper.bilibili import bilibili
+from scraper.illegal import get_latest_episode
 
-# from dotenv import load_dotenv
-# load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 try:
     ACCESS_TOKEN = os.environ["ACCESS_TOKEN"]
@@ -36,7 +37,7 @@ logger_file_handler.setFormatter(formatter)
 logger.addHandler(logger_file_handler)
 
 animelist = pd.read_csv('animelist.csv')
-animelist = animelist
+animelist = animelist.fillna("-")
 
 
 def notify(name, episode):
@@ -55,43 +56,27 @@ def notify(name, episode):
     }
     r = requests.post(url, headers=headers, data=json.dumps(data))
     print(r.text)
-    logger.info(f'{name} {episode} ;{r.text}')
+    logger.info(f'🔔: {name} {episode} ;{r.text}')
 
 
-# get watching anime
-def get_watching_anime():
-    url = "https://myanimelist.net/animelist/markmarker?status=1"
-    r = requests.get(url, headers={
-                     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'})
-    souped = BeautifulSoup(r.text, 'html.parser')
-    table = souped.find_all('table', class_="list-table")
-    data = json.loads(table[0]['data-items'])
-    watching_list = []
-    for i in data:
-        scheme = i['anime_url']
-        anime_url = f'https://myanimelist.net{scheme}/episode'
-        episode, name = mal(anime_url)
-        watching_list.append((scheme, episode, name ))
 
-    return watching_list
+for i in range(animelist.shape[0]):
+    anime = animelist.loc[i]
+    print("-- "*8,"\n",anime.values,"\n","-- "*8)
 
-watching_list = get_watching_anime()
-# watching_list = [('/anime/47917/Bocchi_the_Rock', 10, '\nぼっち・ざ・ろっく！\n  '), ('/anime/44511/Chainsaw_Man', 10, '\nチェンソーマン\n  '), ('/anime/37520/Dororo', 24, '\nどろろ\n  '), ('/anime/49220/Isekai_Ojisan', 6, '\n異世界おじさん\n  '), ('/anime/50602/Spy_x_Family_Part_2', 11, '\nSPY×FAMILY\n  ')]
-print(watching_list)
-
-for scheme, latest_episode, name in watching_list:
-    a = animelist.loc[animelist['scheme'] == scheme]
-    found_in_local = len(a)
-    if found_in_local:
-        b = a['bilibili']
-        latest_episode = max(latest_episode, bilibili(f"https://www.bilibili.tv/th/play{b}"))
-        if (latest_episode > int(a['episode'])):
-            animelist.loc[animelist['scheme'] ==
-                          scheme, 'episode'] = latest_episode
-            notify(name, latest_episode)
+    name, latest_episode, bilibili_scheme, pirate = anime.values
+    fetched_episode = 0
+    if bilibili_scheme not in ['-', '']:
+        fetched_episode = bilibili(
+            f"https://www.bilibili.tv/th/play{bilibili_scheme}")
     else:
-        b = None
-        animelist.loc[len(animelist.index)] = [scheme, latest_episode, b]
+        fetched_episode = get_latest_episode("https://animekimi.com/anime/tokyo-revengers-seiya-kessen-hen/")
+
+    print(name, fetched_episode)
+    logger.info(f'🤖: {name} {fetched_episode}')
+
+    if fetched_episode > latest_episode:
         notify(name, latest_episode)
+        animelist.loc[i] = [name, fetched_episode, bilibili_scheme, pirate]
 
 animelist.to_csv('./animelist.csv', index=False)

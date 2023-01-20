@@ -40,4 +40,4 @@ def get_latest_episode(url):
 
 # debugger
 if __name__ == '__main__':
-    print(get_latest_episode("https://www.anime-masters.com/isekai-ojisan/"))
+    print(get_latest_episode("https://animekimi.com/anime/tokyo-revengers-seiya-kessen-hen/"))
