@@ -74,7 +74,7 @@ for i in range(animelist.shape[0]):
         fetched_episode = get_latest_episode("https://animekimi.com/anime/tokyo-revengers-seiya-kessen-hen/")
 
     print(name, fetched_episode)
-    logger.info(f'🤖: {name} {fetched_episode}')
+    # logger.info(f'🤖: {name} {fetched_episode}')
 
     if fetched_episode > latest_episode:
         notify(name, fetched_episode)
