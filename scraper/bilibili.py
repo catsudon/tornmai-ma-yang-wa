@@ -10,6 +10,18 @@ def bilibili(url):
         if('PV' in i.text):
             latest_episode-=1
 
+    try:
+        a = souped.find_all('li', class_='section-bar__item')
+        l = a[-1].text[::-1]
+        s = ""
+        for i in l:
+            if(i.isdigit()):
+                s+=i
+            else: break
+        
+        latest_episode = max(latest_episode, int(s[::-1]))
+    except Exception: pass
+
     return latest_episode
 
 # debugger
