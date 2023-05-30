@@ -3,7 +3,7 @@ name: run app.py
 on:
   push:
   schedule:
-    - cron: '0 */3 * * *' # Every 3 Hour
+    - cron: '0 * * * *' # Every Hour
 
 jobs:
   build:
