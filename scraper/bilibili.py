@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 def bilibili(url):
     r = requests.get(url)
     souped =  BeautifulSoup(r.text, 'html.parser')
-    a = souped.find_all('a', class_='ep-item__reference')
+    a = souped.find_all('a', class_='ep-item')
     latest_episode = len(a)
     for i in a:
         if('PV' in i.text):
