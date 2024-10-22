@@ -33,7 +33,7 @@ jobs:
       - name: commit files
         run: |
           git config --global user.email "sathanalao@hotmail.com"
-          git config --global user.name "mark48853"
+          git config --global user.name "catsudon"
           git add -A
           git diff-index --quiet HEAD || (git commit -a -m "🤖:updated" --allow-empty)
           
